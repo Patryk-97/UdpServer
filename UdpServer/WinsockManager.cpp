@@ -32,7 +32,7 @@ std::string WinsockManager::getErrorMessage(void)
 {
    // locals
    std::string rV;
-   int errorNo = WSAGetLastError();
+   int errorNo = ::WSAGetLastError();
 
    switch (errorNo)
    {
@@ -40,6 +40,11 @@ std::string WinsockManager::getErrorMessage(void)
       {
          rV = "Bad pointer. Probably you passed wrong length of size sockaddr structure and it is smaller ";
          rV += "than the sizeof(sockaddr). Check functions like getsockname().";
+         break;
+      }
+      case WSAEAFNOSUPPORT:
+      {
+         rV += "Address family not supported by protocol family.";
          break;
       }
       case WSAEADDRNOTAVAIL:

@@ -18,10 +18,9 @@ public:
    ~UdpClientSocket();
    void reset(void);
    bool init(IpProtocol ipProtocol);
-   bool sendTo(const char* address, const uint16_t port, IpProtocol ipProtocol,
-      const std::string& sendBuff, int& bytesSend);
-   int recvFrom(const char* address, const uint16_t port, IpProtocol ipProtocol,
-      char* recvBuff, int recvBuffSize);
+   bool sendTo(const char* address, const uint16_t port, const std::string& sendBuff,
+      int& bytesSend);
+   int recvFrom(const char* address, const uint16_t port, char* recvBuff, int recvBuffSize);
    void close(void);
 
    std::string getIpProtocolStr(void) const;

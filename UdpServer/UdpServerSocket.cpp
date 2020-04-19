@@ -2,7 +2,7 @@
 
 UdpServerSocket::UdpServerSocket()
 {
-   this->ipProtocol = IpProtocol::UNDEFINED;
+   this->ipProtocol = IpProtocol::IPV4;
    this->socketId = INVALID_SOCKET;
    this->socketAddr = std::make_unique<sockaddr_in>();
 }

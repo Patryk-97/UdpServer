@@ -2,8 +2,9 @@
 
 UdpClientSocket::UdpClientSocket()
 {
-   this->ipProtocol = IpProtocol::UNDEFINED;
+   this->ipProtocol = IpProtocol::IPV4;
    this->socketId = INVALID_SOCKET;
+   this->port = 0;
 }
 
 UdpClientSocket::~UdpClientSocket()
@@ -15,6 +16,7 @@ void UdpClientSocket::reset(void)
 {
    this->close();
    this->socketId = INVALID_SOCKET;
+   this->port = 0;
 }
 
 bool UdpClientSocket::init(IpProtocol ipProtocol)
@@ -55,7 +57,7 @@ bool UdpClientSocket::init(IpProtocol ipProtocol)
    return rV;
 }
 
-bool UdpClientSocket::sendTo(const char* address, const uint16_t port, IpProtocol ipProtocol,
+bool UdpClientSocket::sendTo(const char* address, const uint16_t port, 
    const std::string& sendBuff, int& bytesSend)
 {
    // locals
@@ -77,8 +79,8 @@ bool UdpClientSocket::sendTo(const char* address, const uint16_t port, IpProtoco
 
    return rV;
 }
-int UdpClientSocket::recvFrom(const char* address, const uint16_t port, IpProtocol ipProtocol,
-   char* recvBuff, int recvBuffSize)
+int UdpClientSocket::recvFrom(const char* address, const uint16_t port, char* recvBuff,
+   int recvBuffSize)
 {
    // locals
    int rV = 0;

@@ -151,7 +151,7 @@
   <ItemGroup>
     <ClCompile Include="UdpServerSocket.cpp" />
     <ClCompile Include="UdpClientSocket.cpp" />
-    <ClCompile Include="UdpServer.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="WinsockManager.cpp" />
   </ItemGroup>
   <ItemGroup>

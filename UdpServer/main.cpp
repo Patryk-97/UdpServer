@@ -43,7 +43,7 @@ int main()
    else
    {
       std::cout << "Cannot initialiaze a socket\n";
-      std::cout << "Error: " << winsockManager->getErrorMessage() << "\n";
+      std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
       winsockManager->cleanup();
       return -1;
    }
@@ -55,7 +55,7 @@ int main()
    else
    {
       std::cout << "Cannot bind socket server.\n";
-      std::cout << "Error: " << winsockManager->getErrorMessage() << "\n";
+      std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
       serverSocket->close();
       std::cout << "Server socket closed" << "\n";
       winsockManager->cleanup();
@@ -81,7 +81,7 @@ int main()
             else
             {
                std::cout << "Reply message has not sent\n";
-               std::cout << "Error: " << winsockManager->getErrorMessage() << "\n";
+               std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
                clientSocket->close();
                break;
             }
@@ -95,7 +95,7 @@ int main()
          else
          {
             std::cout << "Error occured while server was waiting for message from client\n" << "\n";
-            std::cout << "Error: " << winsockManager->getErrorMessage() << "\n";
+            std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
             clientSocket->close();
          }
 
