@@ -11,6 +11,7 @@
 #include <Winsock2.h>
 #include <Ws2tcpip.h>
 #include <memory>
+#include <algorithm>
 
 class UdpServerSocket
 {

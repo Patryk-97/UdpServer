@@ -66,42 +66,32 @@ int main()
    {
       std::cout << "Waiting for new message ...\n";
 
-      do
+      clientSocket.reset(serverSocket->recvFrom(recvBuff, RECV_BUFF_SIZE, bytesReceived));
+      if (bytesReceived > 0)
       {
-         clientSocket.reset(serverSocket->recvFrom(recvBuff, RECV_BUFF_SIZE, bytesReceived));
-         if (bytesReceived > 0)
+         std::cout << "Message (" << bytesReceived << " bytes) from client [";
+         std::cout << clientSocket->getLocalAddressIp() << ", " << clientSocket->getPort() << "]: ";
+         std::cout << recvBuff << "\n";
+         if (true == serverSocket->sendTo(recvBuff, bytesReceived, clientSocket.get()))
          {
-            std::cout << "Message (" << bytesReceived << " bytes) from client [";
-            std::cout << clientSocket->getLocalAddressIp() << ", " << clientSocket->getPort() << "]: ";
-            std::cout << recvBuff << "\n";
-            if (true == serverSocket->sendTo(recvBuff, bytesReceived, clientSocket.get()))
-            {
-               std::cout << "Reply message to client: " << recvBuff << "\n\n";
-            }
-            else
-            {
-               std::cout << "Reply message has not sent\n";
-               std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
-               clientSocket->close();
-               break;
-            }
-         }
-         else if (bytesReceived == 0)
-         {
-            std::cout << "Client [" << clientSocket->getLocalAddressIp() << ", ";
-            std::cout << clientSocket->getPort() << "] disconnected\n";
-            clientSocket->close();
+            std::cout << "Reply message to client: " << recvBuff << "\n\n";
          }
          else
          {
-            std::cout << "Error occured while server was waiting for message from client\n" << "\n";
+            std::cout << "Reply message has not sent\n";
             std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
             clientSocket->close();
+            break;
          }
+      }
+      else
+      {
+         std::cout << "Error occured while server was waiting for message from client\n" << "\n";
+         std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
+         clientSocket->close();
+      }
 
-      } while (bytesReceived > 0);
-
-      std::cout << "Waiting for another client or stop listening? Y/N: ";
+      std::cout << "Waiting for another message? Y/N: ";
       std::cin >> decision;
 
    } while (decision == 'y' || decision == 'Y');

@@ -41,19 +41,6 @@ bool UdpClientSocket::init(IpProtocol ipProtocol)
       rV = false;
    }
 
-   if (true == rV &&
-      ::getsockname(this->socketId, (sockaddr*)localSocketAddr.get(),
-         &localSocketAddrSize) == SOCKET_ERROR)
-   {
-      rV = false;
-   }
-
-   if (true == rV)
-   {
-      this->port = UdpClientSocket::convertPortFromNetworkEndianness(localSocketAddr.get());
-      this->localAddressIp = UdpClientSocket::convertAddressIpToStr(localSocketAddr.get());
-   }
-
    return rV;
 }
 

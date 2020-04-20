@@ -64,12 +64,14 @@ bool UdpServerSocket::sendTo(const std::string& sendBuff, int& bytesSend,
 {
    // locals
    bool rV = true;
+   std::string ipAddress = udpClient->getLocalAddressIp();
+   ipAddress = ipAddress.substr(1, ipAddress.size() - 2);
 
    sockaddr_in socketAddr;
 
    this->fillIpProtocolFamily(&socketAddr);
    this->fillPort(udpClient->getPort(), &socketAddr);
-   rV = this->fillNetworkAddressStructure(udpClient->getLocalAddressIp().c_str(), &socketAddr);
+   rV = this->fillNetworkAddressStructure(ipAddress.c_str(), &socketAddr);
 
    if (true == rV)
    {
